@@ -1,0 +1,139 @@
+/* ---- Greek Wars campaign page ---- */
+
+.gw-badge {
+  background: rgba(81,106,246,0.14);
+  border: 1px solid rgba(81,106,246,0.4);
+  color: var(--blue-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Hero */
+.gw-hero { padding: 148px 0 100px; }
+.gw-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+.gw-hero h1 { font-size: clamp(2rem, 4.6vw, 3.1rem); margin-bottom: 18px; }
+.gw-hero .hero-sub { margin-bottom: 32px; }
+
+.gw-icon-row { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 36px; }
+.gw-icon-row > div { display: flex; flex-direction: column; gap: 4px; max-width: 160px; }
+.gw-icon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; background: rgba(81,106,246,0.15); color: var(--blue-light); font-size: 0.95rem; margin-bottom: 6px; flex-shrink: 0; }
+.gw-icon svg { width: 16px; height: 16px; }
+.gw-icon.lg { width: 44px; height: 44px; font-size: 1.3rem; border-radius: 10px; }
+.gw-icon.lg svg { width: 22px; height: 22px; }
+.pennant-chart svg { width: 18px; height: 18px; }
+.gw-trophy svg { width: 44px; height: 44px; color: var(--blue-light); }
+.gw-icon-row strong { font-size: 0.9rem; text-transform: lowercase; }
+.gw-icon-row span { font-size: 0.8rem; color: var(--text-faint); }
+
+/* Pennants */
+.gw-hero-visual { display: flex; flex-direction: column; gap: 32px; }
+.pennant-row { display: flex; justify-content: center; align-items: flex-end; gap: 6px; }
+.pennant {
+  background: linear-gradient(180deg, var(--ink-3), var(--ink-2));
+  border: 1px solid var(--border-strong);
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  padding: 16px 10px 30px;
+  color: var(--text-dim);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.pennant-side { width: 64px; height: 130px; opacity: 0.8; }
+.pennant-side.small { width: 56px; height: 110px; }
+.pennant-center {
+  width: 108px; height: 168px;
+  background: linear-gradient(180deg, var(--blue-electric), var(--blue));
+  border-color: rgba(255,255,255,0.25);
+  color: #fff;
+  z-index: 1;
+  gap: 4px;
+  justify-content: center;
+  text-align: center;
+  padding-top: 22px;
+}
+.pennant-brand { font-size: 1rem; font-weight: 800; }
+.pennant-title { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.pennant-sub { font-size: 0.56rem; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.04em; max-width: 80px; }
+.pennant-chart { font-size: 1.1rem; margin-top: 4px; }
+
+/* Leaderboard card (reuses .board-table) */
+.leader-card { background: var(--ink-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.leader-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); }
+.sample-badge { background: rgba(172,184,249,0.14); color: var(--blue-light); padding: 3px 10px; border-radius: 999px; font-weight: 700; letter-spacing: 0.04em; }
+.leader-card .board-table { min-width: 0; }
+.leader-card .board-table th, .leader-card .board-table td { padding: 10px 8px; font-size: 0.82rem; }
+.leader-card .board-table td strong { font-size: 0.85rem; }
+.leader-card .board-table td span { font-size: 0.7rem; }
+.leader-card .disclaimer-inline { margin-top: 14px; }
+
+/* Guarantee band */
+.gw-guarantee { padding: 56px 0; background: var(--ink-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.gw-guarantee-grid { display: grid; grid-template-columns: 1.1fr 1.2fr 1fr; gap: 32px; align-items: center; }
+.gw-guarantee-main, .gw-guarantee-mid { display: flex; align-items: center; gap: 16px; }
+.gw-guarantee-amt { font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0 0 2px; }
+.gw-guarantee-main p:last-child, .gw-guarantee-mid p { margin: 0; font-size: 0.9rem; color: var(--text-dim); }
+.qualify-title { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); margin-bottom: 10px; }
+.gw-guarantee-qualify .check-list li { font-size: 0.86rem; }
+
+/* How it works */
+.gw-steps { display: flex; align-items: flex-start; justify-content: center; gap: 8px; margin-top: 36px; flex-wrap: wrap; }
+.gw-step { flex: 1; min-width: 160px; max-width: 220px; text-align: left; }
+.gw-step .step-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 999px; background: var(--blue); color: #fff; font-weight: 700; font-size: 0.85rem; margin-bottom: 12px; }
+.gw-step h3 { font-size: 1rem; margin-bottom: 6px; }
+.gw-step p { font-size: 0.85rem; margin: 0; }
+.step-arrow { color: var(--text-faint); font-size: 1.2rem; padding-top: 6px; }
+
+/* Prize grid */
+.gw-prize-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.gw-win-card, .gw-duality-card { background: var(--ink); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; }
+.gw-trophy { font-size: 2.6rem; margin: 8px 0 20px; }
+.gw-win-row { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--border); }
+.gw-win-row:first-of-type { border-top: none; }
+.gw-win-row strong { display: block; font-size: 0.92rem; margin-bottom: 4px; }
+.gw-win-row p { font-size: 0.86rem; margin: 0; }
+
+.duality-tier { border-radius: var(--radius-sm); padding: 20px; text-align: center; border: 1px solid var(--border-strong); }
+.duality-tier.individual { background: rgba(81,106,246,0.1); }
+.duality-tier.chapter { background: rgba(172,184,249,0.08); margin-top: 14px; }
+.duality-tag { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue-light); font-weight: 700; }
+.duality-label { font-size: 0.86rem; color: var(--text-dim); margin: 8px 0 6px; }
+.duality-amt { font-size: 1.7rem; font-weight: 700; color: var(--text); margin: 0; }
+.duality-note { font-size: 0.76rem; color: var(--text-faint); }
+.duality-plus { text-align: center; color: var(--text-faint); font-size: 1.2rem; padding: 6px 0; }
+.duality-caption { font-size: 0.82rem; margin: 18px 0 0; text-align: center; }
+
+/* Info row */
+.gw-info { padding: 56px 0; }
+.gw-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.gw-info-grid > div { display: flex; align-items: flex-start; gap: 14px; }
+.gw-info-grid strong { display: block; font-size: 0.92rem; margin-bottom: 4px; }
+.gw-info-grid span { font-size: 0.84rem; color: var(--text-faint); }
+
+/* Final CTA */
+.gw-final { background: linear-gradient(135deg, var(--blue-electric), var(--blue)); padding: 48px 0; }
+.gw-final-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.gw-final-left { display: flex; align-items: center; gap: 18px; }
+.fomo-mark { width: 48px; height: 30px; display: flex; align-items: center; flex-shrink: 0; }
+.fomo-mark svg { width: 100%; height: 100%; }
+.gw-final-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin: 0 0 2px; }
+.gw-final-left p:last-child { margin: 0; color: rgba(255,255,255,0.85); font-size: 0.9rem; }
+.gw-final .btn-primary { background: #fff; color: var(--blue); box-shadow: none; }
+.gw-final .btn-primary:hover { background: var(--ink); color: #fff; }
+
+@media (max-width: 980px) {
+  .gw-hero-grid { grid-template-columns: 1fr; }
+  .gw-guarantee-grid { grid-template-columns: 1fr; gap: 20px; }
+  .gw-prize-grid { grid-template-columns: 1fr; }
+  .pennant-row { flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .gw-steps { flex-direction: column; align-items: stretch; }
+  .step-arrow { display: none; }
+  .gw-final-inner { flex-direction: column; text-align: center; }
+  .gw-final-left { flex-direction: column; }
+}
