@@ -3,33 +3,394 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>fomo</title>
+<title>fomo // campus</title>
 <link rel="preconnect" href="https://api.fontshare.com">
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@700&display=swap">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap">
 <style>
-  :root { color-scheme: dark; }
-  html, body {
-    margin: 0;
-    height: 100%;
-    background: #0B091F;
-  }
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  h1 {
-    font-family: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 700;
-    font-size: clamp(3rem, 10vw, 7rem);
-    color: #EAEDFF;
-    margin: 0;
-    letter-spacing: -0.02em;
-  }
-  h1 span { color: #516AF6; }
+:root{
+  --ink:#0B091F; --ink-2:#131029; --ink-3:#1b1740;
+  --border:rgba(234,237,255,0.10); --border-strong:rgba(234,237,255,0.18);
+  --blue:#516AF6; --blue-electric:#4A36FF; --blue-light:#ACB8F9;
+  --lavender:#EAEDFF; --text:#EAEDFF; --text-dim:rgba(234,237,255,0.68); --text-faint:rgba(234,237,255,0.42);
+  --green:#7FE3B4; --radius:18px; --radius-sm:12px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; overflow-x:hidden;}
+body{margin:0; background:var(--ink); color:var(--text); font-family:'General Sans','Inter',-apple-system,sans-serif; line-height:1.55; overflow-x:hidden;}
+h1,h2,h3,h4{margin:0 0 .5em; letter-spacing:-0.01em; line-height:1.1; font-weight:700;}
+p{color:var(--text-dim); margin:0 0 1em;}
+a{color:inherit; text-decoration:none;}
+.container{max-width:1100px; margin:0 auto; padding:0 24px;}
+.halo{position:fixed; top:-20%; left:50%; transform:translateX(-50%); width:1400px; height:900px; max-width:200vw; background:radial-gradient(circle, rgba(74,54,255,0.28) 0%, rgba(74,54,255,0.08) 45%, transparent 70%); pointer-events:none; z-index:0;}
+
+/* Top bar */
+.topbar{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:22px 24px; background:rgba(11,9,31,0.75); backdrop-filter:blur(14px); border-bottom:1px solid var(--border);}
+.brand{font-weight:700; font-size:1.05rem;}
+.brand .slash{color:var(--blue-light); font-weight:600;}
+.pill-nav{display:flex; gap:10px;}
+.pill-nav a{font-size:0.82rem; font-weight:600; padding:8px 16px; border-radius:999px; border:1px solid var(--border-strong); color:var(--text-dim);}
+.pill-nav a:hover{color:var(--text); border-color:var(--blue-light);}
+.pill-nav a.active{background:var(--blue); border-color:var(--blue); color:#fff;}
+
+/* Buttons */
+.btn{display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; font-weight:600; font-size:0.95rem; cursor:pointer; border:1px solid transparent; transition:transform .2s ease, box-shadow .2s ease, background .2s ease;}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--blue); color:#fff; box-shadow:0 8px 24px rgba(81,106,246,.35);}
+.btn-primary:hover{background:var(--blue-electric);}
+.btn-secondary{background:transparent; color:var(--text); border-color:var(--border-strong);}
+.btn-secondary:hover{background:rgba(234,237,255,0.06);}
+
+/* Views */
+.view{min-height:100vh; position:relative; z-index:1;}
+.view[hidden]{display:none;}
+
+/* HOME / HERO */
+#view-home .hero{max-width:760px; margin:0 auto; text-align:center; padding:120px 24px 100px;}
+.badge{display:inline-block; padding:6px 16px; border:1px solid var(--border-strong); border-radius:999px; font-size:0.78rem; color:var(--text-dim); background:rgba(255,255,255,0.03); margin-bottom:28px; text-transform:uppercase; letter-spacing:0.06em;}
+.wordmark{font-size:clamp(2.6rem, 8vw, 5.2rem); font-weight:700; margin-bottom:18px; letter-spacing:-0.02em;}
+.wordmark .accent{background:linear-gradient(100deg,#fff 0%, var(--blue-light) 55%, var(--blue) 100%); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.tagline{font-size:1.3rem; font-weight:600; color:var(--text); margin-bottom:10px;}
+.sub{font-size:1.02rem; max-width:520px; margin:0 auto 40px;}
+.cta-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:64px;}
+
+.rings{position:relative; height:220px; display:flex; align-items:center; justify-content:center;}
+.rings span{position:absolute; border-radius:999px; border:1px solid var(--border-strong);}
+.rings span:nth-child(1){width:120px; height:120px; background:var(--blue); opacity:.9; filter:blur(0);}
+.rings span:nth-child(2){width:200px; height:200px; border-color:rgba(81,106,246,0.4);}
+.rings span:nth-child(3){width:280px; height:280px; border-color:rgba(81,106,246,0.2);}
+
+/* Section shared */
+.view-head{max-width:700px; margin:0 auto; text-align:center; padding:120px 24px 20px;}
+.back{display:inline-block; margin-bottom:24px; font-size:0.85rem; color:var(--text-faint); font-weight:600;}
+.back:hover{color:var(--text);}
+.view-head h2{font-size:clamp(2rem,4vw,2.8rem);}
+section.block{padding:70px 0;}
+.section-label{text-align:center; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--blue-light); font-weight:700; margin-bottom:36px;}
+
+/* Subtabs (Greek Wars) */
+.subtabs{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:36px 0 8px;}
+.subtabs button{font-family:inherit; background:transparent; border:1px solid var(--border-strong); color:var(--text-dim); padding:10px 20px; border-radius:999px; font-size:0.88rem; font-weight:600; cursor:pointer;}
+.subtabs button.active{background:var(--blue); border-color:var(--blue); color:#fff;}
+.subpanel{display:none; padding:56px 24px 90px; max-width:900px; margin:0 auto;}
+.subpanel.active{display:block;}
+.subpanel h3{font-size:1.5rem; text-align:center; margin-bottom:14px;}
+.subpanel > p.intro{text-align:center; max-width:560px; margin:0 auto 40px;}
+
+.step-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px;}
+.step-card{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:22px;}
+.step-card .num{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:999px; background:var(--blue); color:#fff; font-weight:700; font-size:0.8rem; margin-bottom:12px;}
+.step-card h4{font-size:0.98rem; margin-bottom:6px;}
+.step-card p{font-size:0.86rem; margin:0;}
+
+.board-table{width:100%; border-collapse:collapse;}
+.board-table thead th{text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); padding:0 12px 12px; border-bottom:1px solid var(--border);}
+.board-table td{padding:14px 12px; border-bottom:1px solid var(--border); font-size:0.9rem;}
+.board-table td strong{display:block;} .board-table td span{display:block; font-size:0.76rem; color:var(--text-faint);}
+.board-table td.green{color:var(--green); font-weight:700;}
+.data-card{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius); padding:24px; overflow-x:auto;}
+.disclaimer-inline{font-size:0.78rem; color:var(--text-faint); font-style:italic; margin-top:16px;}
+
+/* Campus Team */
+.roles-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:20px; max-width:1000px; margin:0 auto; padding:0 24px;}
+.role-card{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius); padding:24px;}
+.role-card h4{font-size:1.02rem; margin-bottom:8px; color:var(--blue-light);}
+.role-card p{font-size:0.86rem; margin:0;}
+
+.dinner{max-width:760px; margin:0 auto; padding:0 24px; text-align:center;}
+.dinner-card{background:linear-gradient(160deg, rgba(81,106,246,0.14), rgba(74,54,255,0.05)); border:1px solid rgba(81,106,246,0.35); border-radius:var(--radius); padding:44px 36px;}
+.dinner-card h3{font-size:1.4rem;}
+.dinner-card p{max-width:480px; margin:0 auto 24px;}
+
+.literature{max-width:680px; margin:0 auto; padding:0 24px;}
+.literature p{font-size:0.98rem;}
+
+.apply-band{text-align:center; padding:70px 24px;}
+.apply-band h3{font-size:1.6rem;}
+
+/* Modals */
+.modal-overlay{position:fixed; inset:0; background:rgba(5,4,15,0.72); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:200; padding:20px;}
+.modal-overlay[hidden]{display:none;}
+.modal{background:var(--ink-2); border:1px solid var(--border-strong); border-radius:var(--radius); padding:36px; max-width:480px; width:100%; position:relative; max-height:90vh; overflow-y:auto;}
+.modal-close{position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-faint); font-size:1.4rem; cursor:pointer; line-height:1;}
+.modal-close:hover{color:var(--text);}
+.modal h3{font-size:1.2rem; margin-bottom:6px;}
+.modal p.modal-sub{font-size:0.88rem; margin-bottom:22px;}
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+.field label{font-size:0.82rem; font-weight:600; color:var(--text-dim);}
+.field input, .field select{background:var(--ink); border:1px solid var(--border-strong); border-radius:var(--radius-sm); padding:11px 14px; color:var(--text); font-family:inherit; font-size:0.92rem; outline:none;}
+.field input:focus, .field select:focus{border-color:var(--blue);}
+.modal .btn-primary{width:100%; justify-content:center; margin-top:6px;}
+.modal-success{text-align:center; padding:10px 0;}
+.modal-success .check{font-size:2rem; margin-bottom:10px;}
+
+footer{border-top:1px solid var(--border); padding:36px 24px; text-align:center;}
+footer p{font-size:0.8rem; color:var(--text-faint); margin:0;}
+
+@media (max-width:640px){
+  .topbar{padding:16px;}
+  .pill-nav a{padding:7px 12px; font-size:0.76rem;}
+}
 </style>
 </head>
 <body>
-  <h1>fomo<span>.</span></h1>
+
+<div class="halo" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a href="#home" class="brand" data-nav="home">fomo <span class="slash">// campus</span></a>
+  <nav class="pill-nav" id="pill-nav">
+    <a href="#greek-wars" data-nav="greek-wars">Greek Wars</a>
+    <a href="#campus-team" data-nav="campus-team">Join the Family</a>
+  </nav>
+</header>
+
+<!-- HOME -->
+<section class="view" id="view-home">
+  <div class="hero">
+    <span class="badge">— now available on campus</span>
+    <h1 class="wordmark">fomo <span class="accent">// campus</span></h1>
+    <p class="tagline">where traders become legends.</p>
+    <p class="sub">From memecoins to viral tokens, trade any crypto in seconds — now, one campus at a time.</p>
+    <div class="cta-row">
+      <a href="#campus-team" class="btn btn-primary">Join the family</a>
+      <a href="#greek-wars" class="btn btn-secondary">Greek Wars</a>
+    </div>
+    <div class="rings" aria-hidden="true"><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<!-- GREEK WARS -->
+<section class="view" id="view-greek-wars" hidden>
+  <div class="view-head">
+    <a href="#home" class="back">← fomo // campus</a>
+    <h2>Greek Wars</h2>
+    <p>The trading competition for Greek chapters on fomo. Your chapter is your clan — up against every other clan at your school, and every clan in the country.</p>
+  </div>
+
+  <nav class="subtabs" id="gw-tabs">
+    <button data-tab="gameday" class="active">Game Day</button>
+    <button data-tab="onboard">Onboard Chapter</button>
+    <button data-tab="share">Share</button>
+    <button data-tab="data">Data</button>
+  </nav>
+
+  <div class="subpanel active" data-panel="gameday">
+    <h3>Game Day</h3>
+    <p class="intro">Live trading days where your whole chapter trades together in real time. Rally in person or over the group chat, watch the leaderboard move minute by minute, and post your wins before the war moves to the next school.</p>
+    <div class="step-grid">
+      <div class="step-card"><span class="num">1</span><h4>Rally your clan</h4><p>Get your chapter in one room or one group chat before the open.</p></div>
+      <div class="step-card"><span class="num">2</span><h4>Trade the window</h4><p>Every trade during the game day window counts toward the board.</p></div>
+      <div class="step-card"><span class="num">3</span><h4>Track it live</h4><p>Watch your chapter's rank move in real time on the data page.</p></div>
+      <div class="step-card"><span class="num">4</span><h4>Post the result</h4><p>Screenshot the board, tag fomo, and call out the chapter you beat.</p></div>
+    </div>
+  </div>
+
+  <div class="subpanel" data-panel="onboard">
+    <h3>Onboard Chapter</h3>
+    <p class="intro">Getting your chapter live takes one call. We help you set up chapter accounts, brand your channel, and get your first wave of members trading before week one ends.</p>
+    <div class="step-grid">
+      <div class="step-card"><span class="num">1</span><h4>Sign up your chapter</h4><p>One brother or sister registers the chapter — takes five minutes.</p></div>
+      <div class="step-card"><span class="num">2</span><h4>Get your kit</h4><p>Branded assets, onboarding flow, and a dedicated fomo contact.</p></div>
+      <div class="step-card"><span class="num">3</span><h4>Hit 80% signup</h4><p>Get most of your active roster on fomo to qualify for prizes.</p></div>
+      <div class="step-card"><span class="num">4</span><h4>Go live on the board</h4><p>Your chapter appears on the national leaderboard once verified.</p></div>
+    </div>
+  </div>
+
+  <div class="subpanel" data-panel="share">
+    <h3>Share</h3>
+    <p class="intro">Every chapter gets a shareable page, a referral link, and ready-made content to post. The chapters that win the war are the ones that post the loudest.</p>
+    <div class="step-grid">
+      <div class="step-card"><span class="num">◈</span><h4>Referral link</h4><p>One link that tracks every signup back to your chapter.</p></div>
+      <div class="step-card"><span class="num">◈</span><h4>Share cards</h4><p>Auto-generated rank and PnL cards, ready to post.</p></div>
+      <div class="step-card"><span class="num">◈</span><h4>Group chat drops</h4><p>Pre-written updates to keep your chat engaged all season.</p></div>
+      <div class="step-card"><span class="num">◈</span><h4>Campus posters</h4><p>Print-ready flyers to recruit beyond your own roster.</p></div>
+    </div>
+  </div>
+
+  <div class="subpanel" data-panel="data">
+    <h3>Data</h3>
+    <p class="intro">Every chapter is ranked by total PnL. Standings are illustrative until the season opens — live stats update every 15 minutes once trading begins.</p>
+    <div class="data-card">
+      <table class="board-table">
+        <thead><tr><th>rank</th><th>chapter</th><th>total pnl</th><th>7d</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td><strong>Sigma Alpha Epsilon</strong><span>University of Alabama</span></td><td>$128,450</td><td class="green">+24.8%</td></tr>
+          <tr><td>02</td><td><strong>Kappa Alpha</strong><span>University of Texas</span></td><td>$97,210</td><td class="green">+18.3%</td></tr>
+          <tr><td>03</td><td><strong>Phi Delta Theta</strong><span>San Diego State University</span></td><td>$74,560</td><td class="green">+15.7%</td></tr>
+          <tr><td>04</td><td><strong>Delta Sigma Phi</strong><span>University of Florida</span></td><td>$61,230</td><td class="green">+12.9%</td></tr>
+          <tr><td>05</td><td><strong>Sigma Chi</strong><span>University of Tennessee</span></td><td>$48,920</td><td class="green">+9.1%</td></tr>
+        </tbody>
+      </table>
+      <p class="disclaimer-inline">sample leaderboard for illustration — not real trading results</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS TEAM -->
+<section class="view" id="view-campus-team" hidden>
+  <div class="view-head">
+    <a href="#home" class="back">← fomo // campus</a>
+    <h2>Join the Family</h2>
+    <p>Build fomo at your school. Get real experience, get paid, and help bring social trading to your campus.</p>
+  </div>
+
+  <div class="block">
+    <p class="section-label">roles overview</p>
+    <div class="roles-grid">
+      <div class="role-card"><h4>Campus President</h4><p>Leads the campus team, owns the relationship with fomo HQ, and calls the shots on chapter strategy.</p></div>
+      <div class="role-card"><h4>Growth</h4><p>Drives signups and activation across campus — referral pushes, tabling, dorm-to-dorm outreach.</p></div>
+      <div class="role-card"><h4>Partnerships</h4><p>Builds relationships with Greek life, clubs, and campus orgs to bring fomo into new rooms.</p></div>
+      <div class="role-card"><h4>Content</h4><p>Runs the campus feed — videos, street interviews, recaps — and turns campus life into content.</p></div>
+      <div class="role-card"><h4>Culture</h4><p>Plans events, the dinner series, and everything that makes fomo feel like a community, not an app.</p></div>
+    </div>
+  </div>
+
+  <div class="block dinner">
+    <p class="section-label">the dinner series</p>
+    <div class="dinner-card">
+      <h3>Twelve seats. One table. On fomo.</h3>
+      <p>Each semester we fund an intimate dinner for twelve — traders, campus leaders, and builders at your school. No pitch decks, just a great meal and good conversation, fully covered by fomo.</p>
+      <button class="btn btn-secondary" id="open-dinner">Request a seat</button>
+    </div>
+  </div>
+
+  <div class="block literature">
+    <p class="section-label">what this actually is</p>
+    <p>fomo is the social trading app built for the next generation — real-time feeds, leaderboards, and a community that makes trading feel like something you do together, not alone. The Campus Team is how that community gets built at your school: a small group of students who run fomo's presence on campus, from Greek Wars to everyday growth.</p>
+    <p>This isn't a one-off gig. Campus Team members get direct access to the fomo team, real responsibility, and a role that means something on a résumé — because you're not just repping an app, you're helping build a company.</p>
+  </div>
+
+  <div class="apply-band">
+    <h3>Ready to join?</h3>
+    <p>Pick a role, tell us about yourself, and we'll take it from there.</p>
+    <button class="btn btn-primary" id="open-apply">Apply Now</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 fomo. All rights reserved. fomo // campus is not financial advice — trading involves risk.</p>
+</footer>
+
+<!-- APPLY MODAL -->
+<div class="modal-overlay" id="apply-modal" hidden>
+  <div class="modal">
+    <button class="modal-close" data-close="apply-modal">×</button>
+    <div class="modal-form">
+      <h3>Apply to the Campus Team</h3>
+      <p class="modal-sub">Takes about two minutes. We review applications on a rolling basis.</p>
+      <form id="apply-form">
+        <div class="field">
+          <label for="role">Role you're applying for*</label>
+          <select id="role" required>
+            <option value="" disabled selected>Select a role</option>
+            <option>Campus President</option>
+            <option>Growth</option>
+            <option>Partnerships</option>
+            <option>Content</option>
+            <option>Culture</option>
+          </select>
+        </div>
+        <div class="field"><label for="apply-name">Full name*</label><input type="text" id="apply-name" required placeholder="Jane Doe"></div>
+        <div class="field"><label for="apply-school">School*</label><input type="text" id="apply-school" required placeholder="University of Somewhere"></div>
+        <div class="field"><label for="apply-frat">Fraternity / sorority (if any)</label><input type="text" id="apply-frat" placeholder="Sigma Alpha Epsilon"></div>
+        <div class="field"><label for="apply-insta">Instagram handle</label><input type="text" id="apply-insta" placeholder="@yourhandle"></div>
+        <div class="field"><label for="apply-email">Email*</label><input type="email" id="apply-email" required placeholder="jane@university.edu"></div>
+        <button type="submit" class="btn btn-primary">Submit application</button>
+      </form>
+      <div class="modal-success" hidden>
+        <div class="check">◆</div>
+        <h3>You're in the running.</h3>
+        <p>Thanks for applying — your application will be reviewed by our campus team. We'll follow up within a couple weeks.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DINNER MODAL -->
+<div class="modal-overlay" id="dinner-modal" hidden>
+  <div class="modal">
+    <button class="modal-close" data-close="dinner-modal">×</button>
+    <div class="modal-form">
+      <h3>Request a Seat</h3>
+      <p class="modal-sub">Twelve seats per dinner, reviewed on a rolling basis.</p>
+      <form id="dinner-form">
+        <div class="field"><label for="dinner-name">Full name*</label><input type="text" id="dinner-name" required placeholder="Jane Doe"></div>
+        <div class="field"><label for="dinner-school">School*</label><input type="text" id="dinner-school" required placeholder="University of Somewhere"></div>
+        <div class="field"><label for="dinner-email">Email*</label><input type="email" id="dinner-email" required placeholder="jane@university.edu"></div>
+        <div class="field"><label for="dinner-insta">Instagram handle</label><input type="text" id="dinner-insta" placeholder="@yourhandle"></div>
+        <button type="submit" class="btn btn-primary">Request my seat</button>
+      </form>
+      <div class="modal-success" hidden>
+        <div class="check">◆</div>
+        <h3>You're on the list.</h3>
+        <p>Seats are limited and reviewed on a rolling basis — we'll reach out if there's a spot for you.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- View routing ----
+const views = {
+  'home': document.getElementById('view-home'),
+  'greek-wars': document.getElementById('view-greek-wars'),
+  'campus-team': document.getElementById('view-campus-team'),
+};
+const navLinks = document.querySelectorAll('.pill-nav a');
+
+function showView(name) {
+  if (!views[name]) name = 'home';
+  Object.entries(views).forEach(([key, el]) => { el.hidden = key !== name; });
+  navLinks.forEach((a) => a.classList.toggle('active', a.dataset.nav === name));
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+}
+
+function routeFromHash() {
+  const hash = window.location.hash.replace('#', '') || 'home';
+  showView(hash);
+}
+window.addEventListener('hashchange', routeFromHash);
+routeFromHash();
+
+// ---- Greek Wars subtabs ----
+const gwTabs = document.querySelectorAll('#gw-tabs button');
+const gwPanels = document.querySelectorAll('#view-greek-wars .subpanel');
+gwTabs.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    gwTabs.forEach((b) => b.classList.toggle('active', b === btn));
+    gwPanels.forEach((p) => p.classList.toggle('active', p.dataset.panel === btn.dataset.tab));
+  });
+});
+
+// ---- Modals ----
+function openModal(id) { document.getElementById(id).hidden = false; }
+function closeModal(id) { document.getElementById(id).hidden = true; }
+
+document.getElementById('open-apply').addEventListener('click', () => openModal('apply-modal'));
+document.getElementById('open-dinner').addEventListener('click', () => openModal('dinner-modal'));
+document.querySelectorAll('.modal-close').forEach((btn) => {
+  btn.addEventListener('click', () => closeModal(btn.dataset.close));
+});
+document.querySelectorAll('.modal-overlay').forEach((overlay) => {
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.hidden = true; });
+});
+
+function handleFormSuccess(form) {
+  form.hidden = true;
+  const success = form.parentElement.querySelector('.modal-success');
+  success.hidden = false;
+}
+
+document.getElementById('apply-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!e.target.checkValidity()) { e.target.reportValidity(); return; }
+  handleFormSuccess(e.target);
+});
+document.getElementById('dinner-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!e.target.checkValidity()) { e.target.reportValidity(); return; }
+  handleFormSuccess(e.target);
+});
+</script>
 </body>
 </html>
