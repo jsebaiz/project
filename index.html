@@ -3,33 +3,741 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>fomo</title>
+<title>fomo // campus</title>
 <link rel="preconnect" href="https://api.fontshare.com">
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@700&display=swap">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap">
 <style>
-  :root { color-scheme: dark; }
-  html, body {
-    margin: 0;
-    height: 100%;
-    background: #0B091F;
-  }
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  h1 {
-    font-family: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 700;
-    font-size: clamp(3rem, 10vw, 7rem);
-    color: #EAEDFF;
-    margin: 0;
-    letter-spacing: -0.02em;
-  }
-  h1 span { color: #516AF6; }
+:root{
+  --ink:#0B091F; --ink-2:#131029; --ink-3:#1b1740;
+  --border:rgba(234,237,255,0.10); --border-strong:rgba(234,237,255,0.18);
+  --blue:#516AF6; --blue-electric:#4A36FF; --blue-light:#ACB8F9; --violet:#8B5CF6;
+  --lavender:#EAEDFF; --text:#EAEDFF; --text-dim:rgba(234,237,255,0.68); --text-faint:rgba(234,237,255,0.42);
+  --green:#7FE3B4; --radius:18px; --radius-sm:12px;
+}
+*{box-sizing:border-box;}
+[hidden]{display:none !important;}
+html{scroll-behavior:smooth; overflow-x:hidden;}
+body{margin:0; background:var(--ink); color:var(--text); font-family:'General Sans','Inter',-apple-system,sans-serif; line-height:1.55; overflow-x:hidden;}
+h1,h2,h3,h4{margin:0 0 .5em; letter-spacing:-0.01em; line-height:1.15; font-weight:700;}
+p{color:var(--text-dim); margin:0 0 1em;}
+a{color:inherit; text-decoration:none;}
+.container{max-width:1080px; margin:0 auto; padding:0 24px;}
+.halo{position:fixed; top:-20%; left:50%; transform:translateX(-50%); width:1400px; height:900px; max-width:200vw; background:radial-gradient(circle, rgba(74,54,255,0.22) 0%, rgba(74,54,255,0.06) 45%, transparent 70%); pointer-events:none; z-index:0;}
+
+/* Top bar */
+.topbar{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:20px 24px; background:rgba(11,9,31,0.75); backdrop-filter:blur(14px); border-bottom:1px solid var(--border);}
+.brand{font-weight:700; font-size:1.05rem;}
+.brand .slash{color:var(--blue-light); font-weight:600;}
+.topbar-right{display:flex; align-items:center; gap:10px;}
+.pill-nav{display:flex; gap:8px;}
+.pill-nav a{font-size:0.82rem; font-weight:600; padding:8px 16px; border-radius:999px; border:1px solid var(--border-strong); color:var(--text-dim);}
+.pill-nav a:hover{color:var(--text); border-color:var(--blue-light);}
+.pill-nav a.active{background:var(--blue); border-color:var(--blue); color:#fff;}
+.apply-nav-btn{font-size:0.82rem; padding:9px 18px;}
+
+/* Buttons */
+.btn{display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; font-weight:600; font-size:0.95rem; cursor:pointer; border:1px solid transparent; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease, background .2s ease; font-family:inherit;}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:linear-gradient(135deg, var(--blue-electric), var(--violet)); color:#fff; box-shadow:0 8px 28px rgba(139,92,246,.35);}
+.btn-primary:hover{filter:brightness(1.12);}
+.btn-secondary{background:#000; color:#fff; border-color:rgba(255,255,255,0.15);}
+.btn-secondary:hover{background:#161616;}
+.btn-sm{padding:10px 20px; font-size:0.86rem;}
+
+/* Views */
+.view{min-height:100vh; position:relative; z-index:1;}
+.view[hidden]{display:none;}
+
+/* HOME / HERO */
+#view-home .hero{position:relative; overflow:hidden; padding:120px 24px 110px;}
+.hero-bg{position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 22%, rgba(255,255,255,0.9), transparent 60%),
+    radial-gradient(1px 1px at 18% 65%, rgba(255,255,255,0.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 30% 12%, rgba(255,255,255,0.8), transparent 60%),
+    radial-gradient(1px 1px at 42% 78%, rgba(255,255,255,0.6), transparent 60%),
+    radial-gradient(1.5px 1.5px at 55% 30%, rgba(255,255,255,0.9), transparent 60%),
+    radial-gradient(1px 1px at 66% 55%, rgba(255,255,255,0.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 12% 88%, rgba(255,255,255,0.6), transparent 60%),
+    radial-gradient(1px 1px at 78% 18%, rgba(255,255,255,0.8), transparent 60%),
+    radial-gradient(1.5px 1.5px at 88% 68%, rgba(255,255,255,0.5), transparent 60%),
+    radial-gradient(1px 1px at 95% 40%, rgba(255,255,255,0.7), transparent 60%);
+}
+.planet{position:absolute; top:-260px; right:-260px; width:560px; height:560px; border-radius:50%; z-index:0; pointer-events:none;
+  background:radial-gradient(circle at 32% 32%, #7d95ff 0%, #3f52d9 32%, #171a4a 68%, transparent 100%);
+  box-shadow:-60px 30px 160px rgba(81,106,246,0.4);
+}
+.hero-content{position:relative; z-index:1; max-width:760px; margin:0 auto; text-align:center;}
+.wordmark{font-size:clamp(2.6rem, 8vw, 5rem); font-weight:700; margin-bottom:16px; letter-spacing:-0.02em;}
+.wordmark .accent{color:var(--blue-light);}
+.tagline{font-size:1.3rem; font-weight:600; color:var(--text); margin-bottom:10px;}
+.sub{font-size:1.02rem; max-width:520px; margin:0 auto 40px;}
+.cta-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+/* Section shared */
+.view-head{max-width:700px; margin:0 auto; text-align:center; padding:110px 24px 8px;}
+.back{display:inline-block; margin-bottom:24px; font-size:0.85rem; color:var(--text-faint); font-weight:600;}
+.back:hover{color:var(--text);}
+.view-head h2{font-size:clamp(2rem,4vw,2.6rem);}
+section.block{padding:60px 0;}
+.eyebrow-inline{color:var(--blue-light); font-weight:700; font-size:0.8rem; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:14px;}
+.section-label{text-align:center; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--blue-light); font-weight:700; margin-bottom:20px;}
+
+/* Onboard card */
+.onboard-card{max-width:820px; margin:40px auto 0; background:var(--ink-2); border:1px solid var(--border-strong); border-radius:var(--radius); padding:26px 30px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+.onboard-card h3{font-size:1.05rem; margin-bottom:8px;}
+.onboard-card p{font-size:0.9rem; margin:0;}
+.onboard-card-body{flex:1; min-width:240px;}
+.tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+.tag-pill{font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; padding:5px 12px; border-radius:999px; background:rgba(81,106,246,0.16); color:var(--blue-light); border:1px solid rgba(81,106,246,0.35);}
+.onboard-card-link{font-weight:600; font-size:0.9rem; color:var(--blue-light); white-space:nowrap;}
+.onboard-card-link:hover{color:#fff;}
+
+/* Prize duality */
+.prize-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:820px; margin:40px auto 0;}
+.prize-card{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius); padding:26px;}
+.prize-tag{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); font-weight:700; margin-bottom:10px;}
+.prize-amt{font-size:2rem; font-weight:700; margin-bottom:10px;}
+.prize-card p{font-size:0.88rem; margin:0;}
+
+/* Statement */
+.statement{max-width:700px; margin:70px auto 0; text-align:center; padding:0 24px;}
+.statement p{font-size:1.08rem; color:var(--text-dim);}
+.statement strong{color:var(--text);}
+
+/* Steps */
+.step-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:18px; max-width:920px; margin:0 auto;}
+.step-card{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:22px;}
+.step-card .num{display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:999px; background:var(--blue); color:#fff; font-weight:700; font-size:0.76rem; margin-bottom:12px;}
+.step-card h4{font-size:0.96rem; margin-bottom:6px;}
+.step-card p{font-size:0.85rem; margin:0;}
+
+/* Rest of programme cards */
+.programme-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;}
+.programme-card{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius); padding:26px;}
+.programme-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;}
+.prog-icon{width:34px; height:34px; border-radius:9px; background:rgba(81,106,246,0.15); color:var(--blue-light); display:flex; align-items:center; justify-content:center;}
+.prog-icon svg{width:17px; height:17px;}
+.prog-tag{font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; padding:4px 10px; border-radius:999px; background:rgba(127,227,180,0.12); color:var(--green); white-space:nowrap;}
+.programme-card h4{font-size:1.05rem; margin-bottom:10px;}
+.programme-card p{font-size:0.88rem; margin-bottom:16px;}
+.programme-card .prog-link{font-size:0.86rem; font-weight:600; color:var(--blue-light);}
+.programme-card .prog-link:hover{color:#fff;}
+
+/* Map */
+.map-heading{text-align:center; font-size:1.4rem; margin-bottom:8px;}
+.map-wrap{max-width:800px; margin:0 auto; background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius); padding:20px;}
+#us-map{position:relative; width:100%; line-height:0;}
+#us-map svg{width:100%; height:auto; display:block;}
+#us-map path{fill:#211c47; stroke:rgba(234,237,255,0.14); stroke-width:0.6;}
+.ping-dot{fill:var(--green); cursor:pointer;}
+.ping-pulse{fill:none; stroke:var(--green); stroke-width:1.4; opacity:0.6; animation:pingpulse 2.2s ease-out infinite; pointer-events:none;}
+@keyframes pingpulse{0%{r:5; opacity:0.6;} 100%{r:18; opacity:0;}}
+.map-tooltip{position:absolute; z-index:2; pointer-events:none; background:var(--ink); border:1px solid var(--border-strong); border-radius:8px; padding:6px 12px; font-size:0.8rem; font-weight:600; color:var(--text); transform:translate(-50%,-135%); white-space:nowrap; box-shadow:0 8px 20px rgba(0,0,0,0.45);}
+.map-tooltip[hidden]{display:none;}
+.map-loading{text-align:center; color:var(--text-faint); font-size:0.86rem; padding:60px 0;}
+.disclaimer-inline{font-size:0.78rem; color:var(--text-faint); font-style:italic; margin-top:16px; text-align:center;}
+
+.board-table{width:100%; border-collapse:collapse; margin-top:24px;}
+.board-table thead th{text-align:left; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); padding:0 10px 10px; border-bottom:1px solid var(--border);}
+.board-table td{padding:12px 10px; border-bottom:1px solid var(--border); font-size:0.86rem;}
+.board-table td strong{display:block;} .board-table td span{display:block; font-size:0.74rem; color:var(--text-faint);}
+.board-table td.green{color:var(--green); font-weight:700;}
+
+/* Campus Team roles */
+.roles-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px;}
+.role-card{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius); padding:24px;}
+.role-card.what-it-is{background:linear-gradient(160deg, rgba(81,106,246,0.14), rgba(74,54,255,0.05)); border-color:rgba(81,106,246,0.3);}
+.role-icon{width:34px; height:34px; border-radius:9px; background:rgba(81,106,246,0.15); color:var(--blue-light); display:flex; align-items:center; justify-content:center; margin-bottom:16px;}
+.role-icon svg{width:17px; height:17px;}
+.role-kicker{font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue-light); margin-bottom:8px;}
+.role-card h4{font-size:1rem; margin-bottom:8px;}
+.role-card p{font-size:0.86rem; margin:0;}
+
+/* Literature 3-col */
+.lit-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.lit-col{background:var(--ink-2); border:1px solid var(--border); border-radius:var(--radius); padding:24px;}
+.lit-col p{font-size:0.86rem;}
+.lit-col ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;}
+.lit-col li{font-size:0.85rem; color:var(--text-dim); padding-left:20px; position:relative;}
+.lit-col li::before{content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700;}
+.lit-col strong{color:var(--text);}
+
+/* Apply band */
+.apply-band{background:linear-gradient(135deg, var(--blue-electric), var(--violet)); border-radius:var(--radius); padding:44px 40px; text-align:left;}
+.apply-band .eyebrow-inline{color:rgba(255,255,255,0.85);}
+.apply-band h3{color:#fff; font-size:1.6rem; margin-bottom:14px;}
+.apply-band p{color:rgba(255,255,255,0.88);}
+.apply-band .fine{font-size:0.82rem; color:rgba(255,255,255,0.7); margin-bottom:26px;}
+.apply-band .fine a{text-decoration:underline; color:#fff;}
+.apply-band .btn-secondary{background:#000;}
+
+/* Modals */
+.modal-overlay{position:fixed; inset:0; background:rgba(5,4,15,0.75); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:200; padding:20px;}
+.modal-overlay[hidden]{display:none;}
+.modal{background:var(--ink-2); border:1px solid var(--border-strong); border-radius:var(--radius); padding:36px; max-width:480px; width:100%; position:relative; max-height:90vh; overflow-y:auto;}
+.modal-close{position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-faint); font-size:1.4rem; cursor:pointer; line-height:1;}
+.modal-close:hover{color:var(--text);}
+.modal h3{font-size:1.2rem; margin-bottom:6px;}
+.modal p.modal-sub{font-size:0.88rem; margin-bottom:22px;}
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+.field label{font-size:0.82rem; font-weight:600; color:var(--text-dim);}
+.field input, .field select, .field textarea{background:var(--ink); border:1px solid var(--border-strong); border-radius:var(--radius-sm); padding:11px 14px; color:var(--text); font-family:inherit; font-size:0.92rem; outline:none;}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--blue);}
+.modal .btn-primary{width:100%; justify-content:center; margin-top:6px;}
+.modal-success{text-align:center; padding:10px 0;}
+.modal-success .check{font-size:2rem; margin-bottom:10px;}
+
+/* Wizard modal */
+.wizard-modal{max-width:560px;}
+.wizard-progress{height:4px; background:rgba(234,237,255,0.1); border-radius:999px; margin-bottom:28px; overflow:hidden;}
+.wizard-progress-bar{height:100%; background:linear-gradient(90deg, var(--blue), var(--violet)); border-radius:999px; transition:width .25s ease; width:12.5%;}
+.wizard-step{display:none;}
+.wizard-step.active{display:block;}
+.wizard-count{font-size:0.78rem; color:var(--text-faint); font-weight:700; letter-spacing:0.04em; margin-bottom:6px;}
+.wizard-label{font-size:1.15rem; font-weight:700; margin-bottom:20px;}
+.wizard-nav{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:20px;}
+.wizard-back{font-size:0.85rem; color:var(--text-faint); font-weight:600; cursor:pointer; background:none; border:none; font-family:inherit;}
+.wizard-back:hover{color:var(--text);}
+.wizard-back[hidden]{visibility:hidden;}
+.wizard-hint{font-size:0.76rem; color:var(--text-faint); text-align:right; margin-top:10px;}
+kbd{background:var(--ink); border:1px solid var(--border-strong); border-radius:5px; padding:1px 7px; font-family:inherit; font-size:0.76rem;}
+
+footer{border-top:1px solid var(--border); padding:36px 24px; text-align:center;}
+footer p{font-size:0.8rem; color:var(--text-faint); margin:0 0 8px;}
+footer .disclaimer{font-size:0.74rem; max-width:640px; margin:0 auto; line-height:1.5;}
+
+@media (max-width:760px){
+  .prize-grid, .lit-grid{grid-template-columns:1fr;}
+  .onboard-card{flex-direction:column; align-items:flex-start;}
+}
+@media (max-width:640px){
+  .topbar{padding:16px;}
+  .pill-nav a{padding:7px 12px; font-size:0.76rem;}
+  .apply-nav-btn{display:none;}
+}
 </style>
 </head>
 <body>
-  <h1>fomo<span>.</span></h1>
+
+<div class="halo" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a href="#home" class="brand" data-nav="home">fomo <span class="slash">// campus</span></a>
+  <div class="topbar-right">
+    <nav class="pill-nav" id="pill-nav">
+      <a href="#greek-wars" data-nav="greek-wars">Greek Wars</a>
+      <a href="#campus-team" data-nav="campus-team">Campus Team</a>
+    </nav>
+    <button class="btn btn-secondary apply-nav-btn" id="open-wizard-nav">Apply</button>
+  </div>
+</header>
+
+<!-- HOME -->
+<section class="view" id="view-home">
+  <div class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="planet" aria-hidden="true"></div>
+    <div class="hero-content">
+      <h1 class="wordmark">fomo <span class="accent">// campus</span></h1>
+      <p class="tagline">where campuses become legends.</p>
+      <p class="sub">Greek Wars, Game Day, and the Dinner Series — the fomo college program, in one place.</p>
+      <div class="cta-row">
+        <a href="#greek-wars" class="btn btn-primary">Go to Greek Wars</a>
+        <a href="#campus-team" class="btn btn-secondary">Go to campus team</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GREEK WARS -->
+<section class="view" id="view-greek-wars" hidden>
+  <div class="view-head">
+    <a href="#home" class="back">← fomo // campus</a>
+    <p class="eyebrow-inline" style="text-align:center;">greek wars · fall 2026 · aug 24 – dec 11</p>
+    <h2>your chapter vs. every chapter.</h2>
+    <p>Every chapter becomes a clan. Trade, rep your chapter, win the war — against every other clan at your school, and every clan in the country. <strong style="color:var(--text)">Ranked on raw PnL, not points, not volume, not activity.</strong></p>
+    <div class="cta-row">
+      <a href="#scoreboard" class="btn btn-primary btn-sm">Open Greek Wars ↗</a>
+      <button class="btn btn-secondary btn-sm" id="open-onboard">Onboard your chapter ↗</button>
+    </div>
+
+    <div class="onboard-card">
+      <div class="onboard-card-body">
+        <h3>Onboard your chapter for Greek Wars</h3>
+        <p>Two conditions, and your chapter qualifies: get <strong style="color:var(--text)">80% of your active members</strong> onto fomo, and keep it downloaded through the end of the semester.</p>
+        <div class="tag-row"><span class="tag-pill">$500 guaranteed</span><span class="tag-pill">$10,000 national</span></div>
+      </div>
+      <button class="onboard-card-link" id="open-onboard-2" style="background:none;border:none;cursor:pointer;font-family:inherit;">Onboard ↗</button>
+    </div>
+
+    <div class="prize-grid">
+      <div class="prize-card"><p class="prize-tag">individual</p><p class="prize-amt">$500</p><p><strong style="color:var(--text)">Guaranteed.</strong> At the end of the semester the #1 trader in your chapter wins $500 cash. Every participating chapter gets a winner.</p></div>
+      <div class="prize-card"><p class="prize-tag">chapter</p><p class="prize-amt">$10,000+</p><p><strong style="color:var(--text)">And eternal glory.</strong> The best trading chapter in the country takes the grand prize.</p></div>
+    </div>
+  </div>
+
+  <div class="statement">
+    <p><strong>Two titles run at once — your school crowns a chapter, and so does the country.</strong> Every chapter gets a champion, and qualifying chapters also pick up fomo perks along the way: trading rewards, events, and more.</p>
+  </div>
+
+  <div class="block">
+    <div class="step-grid">
+      <div class="step-card"><span class="num">01</span><h4>Rally your clan</h4><p>Your chapter is your clan. Get everyone on fomo — 80% of actives qualifies you.</p></div>
+      <div class="step-card"><span class="num">02</span><h4>Trade together</h4><p>Every trade counts. Ranked on raw PnL, not points, not volume, not activity.</p></div>
+      <div class="step-card"><span class="num">03</span><h4>Climb the board</h4><p>Your school's board and the national one, at the same time.</p></div>
+      <div class="step-card"><span class="num">04</span><h4>Win the war</h4><p>Your chapter's top trader takes $500. The top chapter in the country takes $10,000.</p></div>
+    </div>
+  </div>
+
+  <div class="block" id="scoreboard">
+    <p class="section-label">the scoreboard</p>
+    <h3 class="map-heading">Chapters already onboarded.</h3>
+    <p style="text-align:center; max-width:520px; margin:0 auto 32px;">Every green ping is a chapter already in the war. Hover a ping to see who's live.</p>
+    <div class="map-wrap">
+      <div id="us-map"><p class="map-loading">loading map…</p><div class="map-tooltip" id="map-tooltip" hidden></div></div>
+      <table class="board-table">
+        <thead><tr><th>rank</th><th>chapter</th><th>total pnl</th><th>7d</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td><strong>Sigma Alpha Epsilon</strong><span>University of Alabama</span></td><td>$128,450</td><td class="green">+24.8%</td></tr>
+          <tr><td>02</td><td><strong>Kappa Alpha</strong><span>University of Texas</span></td><td>$97,210</td><td class="green">+18.3%</td></tr>
+          <tr><td>03</td><td><strong>Phi Delta Theta</strong><span>San Diego State University</span></td><td>$74,560</td><td class="green">+15.7%</td></tr>
+          <tr><td>04</td><td><strong>Delta Sigma Phi</strong><span>University of Florida</span></td><td>$61,230</td><td class="green">+12.9%</td></tr>
+          <tr><td>05</td><td><strong>Sigma Chi</strong><span>University of Tennessee</span></td><td>$48,920</td><td class="green">+9.1%</td></tr>
+        </tbody>
+      </table>
+      <p class="disclaimer-inline">sample data for illustration — standings go live once the season opens, updating every 15 minutes</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="section-label">the rest of the programme</p>
+    <div class="programme-grid">
+      <div class="programme-card">
+        <div class="programme-top"><span class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4h8v4a4 4 0 0 1-4 4 4 4 0 0 1-4-4V4Z"/><path d="M8 5H5a2 2 0 0 0 0 4h1M16 5h3a2 2 0 0 1 0 4h-1"/><path d="M12 12v3M9 20h6M10 20v-3.5M14 20v-3.5"/></svg></span><span class="prog-tag">live pnl</span></div>
+        <h4>Game Day</h4>
+        <p>School versus school. While the football teams play, both schools' traders compete on live PnL, and the scoreboard settles at the final whistle.</p>
+        <a href="#scoreboard" class="prog-link">See the scoreboard →</a>
+      </div>
+      <div class="programme-card">
+        <div class="programme-top"><span class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3v7a2 2 0 0 0 2 2v9M7 3a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2M17 3v18M17 3c-2 0-3 1.5-3 4v3c0 1.5 1 2 3 2"/></svg></span><span class="prog-tag">$1,200 a table</span></div>
+        <h4>Dinner Series</h4>
+        <p>A table for 12, and fomo picks up the check. You choose the room and the people. Twenty dinners this fall, and $10,000 to the campus that lands hardest.</p>
+        <button class="prog-link" id="open-dinner" style="background:none;border:none;cursor:pointer;font-family:inherit;">Host a table →</button>
+      </div>
+      <div class="programme-card">
+        <div class="programme-top"><span class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><span class="prog-tag">for hosts</span></div>
+        <h4>Crew sheet</h4>
+        <p>Running a dinner? Split the night into jobs, put a name on each one, and keep the whole crew on the same page.</p>
+        <button class="prog-link" id="open-crewsheet" style="background:none;border:none;cursor:pointer;font-family:inherit;">Open the crew sheet →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS TEAM -->
+<section class="view" id="view-campus-team" hidden>
+  <div class="view-head">
+    <a href="#home" class="back">← fomo // campus</a>
+    <p class="eyebrow-inline" style="text-align:center;">campus team</p>
+    <h2>the people who run it.</h2>
+    <p>Greek Wars does not happen on its own. On every campus a team of five onboards the chapters, brings in the partners, books the dinners, and keeps the scoreboard honest. <strong style="color:var(--text)">Read what each seat is, then apply.</strong></p>
+  </div>
+
+  <div class="block container">
+    <div class="roles-grid">
+      <div class="role-card what-it-is">
+        <span class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg></span>
+        <p class="role-kicker">what it is</p>
+        <h4>fomo on your campus, run by five students.</h4>
+        <p>One team per school, five seats, one campus on the board. You are the reason the chapters know the program exists.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg></span>
+        <p class="role-kicker">01 · campus president</p>
+        <h4>Runs the team, owns the standings.</h4>
+        <p>The one fomo calls. Sets the plan for the term, keeps the other four seats moving, and answers for the campus's number.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg></span>
+        <p class="role-kicker">02 · growth</p>
+        <h4>Gets the campus onto fomo.</h4>
+        <p>Onboards the chapters, signs up the traders, and turns every game day into more people on the app.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></span>
+        <p class="role-kicker">03 · partnerships</p>
+        <h4>Brings in the rooms and the orgs.</h4>
+        <p>Lines up the houses, the clubs and the venues — every dinner and every game day needs a room and a reason to show up.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span>
+        <p class="role-kicker">04 · content</p>
+        <h4>Posts the nights, and makes sure the posts count.</h4>
+        <p>Shoots the dinners and the game days, and keeps every post disclosed and on-brand.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3v7a2 2 0 0 0 2 2v9M7 3a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2M17 3v18M17 3c-2 0-3 1.5-3 4v3c0 1.5 1 2 3 2"/></svg></span>
+        <p class="role-kicker">05 · culture</p>
+        <h4>Dinners and events.</h4>
+        <p>Plans the dinner series and the campus-side moments that make fomo feel like a place, not just an app.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block container">
+    <div class="lit-grid">
+      <div class="lit-col">
+        <p>You're paid as a contractor. Dinners you host are funded separately.</p>
+        <ul>
+          <li>Dinners are paid for, up to $1,200 a table, with nothing out of pocket.</li>
+          <li>The brand kit and the merch are yours to use, inside the house rules.</li>
+          <li>$10,000 to the campus that wins the fall.</li>
+        </ul>
+      </div>
+      <div class="lit-col">
+        <p>One term at a time, starting Fall 2026. A few hours a week, and heavier on game days and dinner nights. You report to the fomo team and to your own campus standings.</p>
+        <ul>
+          <li>Get your chapters on the board before the first live game day.</li>
+          <li>Run every dinner your campus is granted, with a crew sheet for each.</li>
+          <li>Keep it disclosed. Every post says fomo paid. Undisclosed posts are rejected.</li>
+        </ul>
+      </div>
+      <div class="lit-col">
+        <p><strong>fomo is always lowercase.</strong> It is part of the brand, and it is the first thing we notice in a post.</p>
+        <p>Only realised PnL counts on game days, and only approved views count for dinners. Claimed numbers never reach the board. Your job is to make sure your campus never has to argue about a number.</p>
+        <p>Trading involves risk, including loss of principal. Nobody on the campus team gives trading advice, ever.</p>
+        <p style="margin-bottom:0;"><strong>Who we want:</strong> the person people already text when something is happening. Not a title. If your group chats fill up when you say the word, you are the one.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block container">
+    <div class="apply-band">
+      <p class="eyebrow-inline">apply</p>
+      <h3>Run fomo on your campus.</h3>
+      <p style="font-size:0.98rem;">Eight questions. Two minutes. <strong>We read every one.</strong></p>
+      <p class="fine">If you already have a table in mind, that goes through the <a href="#" id="apply-band-dinner-link">Dinner Series application</a> instead. If you just want your chapter on the board, <a href="#" id="apply-band-onboard-link">onboard it here</a>.</p>
+      <button class="btn btn-secondary" id="open-wizard">Start application →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 fomo. All rights reserved.</p>
+  <p class="disclaimer">fomo // campus describes the fomo campus program. Trading involves risk, including loss of principal. Nobody on the campus team provides trading advice. Perpetuals products referenced elsewhere on fomo are not available to U.S. persons.</p>
+</footer>
+
+<!-- ONBOARD CHAPTER MODAL -->
+<div class="modal-overlay" id="onboard-modal" hidden>
+  <div class="modal">
+    <button class="modal-close" data-close="onboard-modal">×</button>
+    <div class="modal-form">
+      <h3>Onboard Your Chapter</h3>
+      <p class="modal-sub">One rep signs up the chapter — takes about five minutes.</p>
+      <form id="onboard-form">
+        <div class="field"><label for="ob-chapter">Chapter name*</label><input type="text" id="ob-chapter" required placeholder="Sigma Alpha Epsilon"></div>
+        <div class="field"><label for="ob-school">School*</label><input type="text" id="ob-school" required placeholder="University of Somewhere"></div>
+        <div class="field"><label for="ob-rep">Your name*</label><input type="text" id="ob-rep" required placeholder="Jane Doe"></div>
+        <div class="field"><label for="ob-email">Email*</label><input type="email" id="ob-email" required placeholder="jane@university.edu"></div>
+        <div class="field"><label for="ob-insta">Chapter Instagram handle</label><input type="text" id="ob-insta" placeholder="@yourchapter"></div>
+        <button type="submit" class="btn btn-primary">Enter the war</button>
+      </form>
+      <div class="modal-success" hidden>
+        <div class="check">◆</div>
+        <h3>Your chapter is in.</h3>
+        <p>We'll follow up with your onboarding kit and next steps so your chapter can go live on the board.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DINNER SERIES MODAL -->
+<div class="modal-overlay" id="dinner-modal" hidden>
+  <div class="modal">
+    <button class="modal-close" data-close="dinner-modal">×</button>
+    <div class="modal-form">
+      <h3>Host a Table</h3>
+      <p class="modal-sub">A table for 12, fully funded — up to $1,200 a table.</p>
+      <form id="dinner-form">
+        <div class="field"><label for="dn-name">Your name*</label><input type="text" id="dn-name" required placeholder="Jane Doe"></div>
+        <div class="field"><label for="dn-school">School*</label><input type="text" id="dn-school" required placeholder="University of Somewhere"></div>
+        <div class="field"><label for="dn-email">Email*</label><input type="email" id="dn-email" required placeholder="jane@university.edu"></div>
+        <div class="field"><label for="dn-insta">Instagram handle</label><input type="text" id="dn-insta" placeholder="@yourhandle"></div>
+        <button type="submit" class="btn btn-primary">Request my table</button>
+      </form>
+      <div class="modal-success" hidden>
+        <div class="check">◆</div>
+        <h3>You're on the list.</h3>
+        <p>Tables are limited and reviewed on a rolling basis — we'll reach out to lock in your room and your twelve.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CREW SHEET MODAL -->
+<div class="modal-overlay" id="crewsheet-modal" hidden>
+  <div class="modal">
+    <button class="modal-close" data-close="crewsheet-modal">×</button>
+    <div class="modal-form">
+      <h3>The Crew Sheet</h3>
+      <p class="modal-sub">Split every dinner into five jobs, and put a name on each one.</p>
+      <ul style="list-style:none; padding:0; margin:0 0 22px; display:flex; flex-direction:column; gap:10px;">
+        <li style="font-size:0.9rem; color:var(--text-dim);"><strong style="color:var(--text)">Reservations</strong> — books the room, confirms the headcount.</li>
+        <li style="font-size:0.9rem; color:var(--text-dim);"><strong style="color:var(--text)">Guest list</strong> — locks the twelve, sends reminders.</li>
+        <li style="font-size:0.9rem; color:var(--text-dim);"><strong style="color:var(--text)">Photos</strong> — shoots the table, keeps it disclosed.</li>
+        <li style="font-size:0.9rem; color:var(--text-dim);"><strong style="color:var(--text)">Recap post</strong> — writes it up, tags fomo.</li>
+        <li style="font-size:0.9rem; color:var(--text-dim);"><strong style="color:var(--text)">Receipts</strong> — handles the check, files it with the team.</li>
+      </ul>
+      <form id="crewsheet-form">
+        <div class="field"><label for="cs-email">Email a copy to</label><input type="email" id="cs-email" required placeholder="jane@university.edu"></div>
+        <button type="submit" class="btn btn-primary">Send me the crew sheet</button>
+      </form>
+      <div class="modal-success" hidden>
+        <div class="check">◆</div>
+        <h3>On its way.</h3>
+        <p>Check your inbox for the crew sheet template — duplicate it for every dinner your campus runs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION WIZARD MODAL -->
+<div class="modal-overlay" id="wizard-modal" hidden>
+  <div class="modal wizard-modal">
+    <button class="modal-close" data-close="wizard-modal">×</button>
+    <div class="wizard-progress"><div class="wizard-progress-bar" id="wizard-progress-bar"></div></div>
+    <form id="wizard-form">
+      <div class="wizard-step active" data-step="1">
+        <p class="wizard-count">01 / 08</p>
+        <p class="wizard-label">First, what's your first name?</p>
+        <div class="field"><input type="text" id="w-first" required placeholder="Jane"></div>
+      </div>
+      <div class="wizard-step" data-step="2">
+        <p class="wizard-count">02 / 08</p>
+        <p class="wizard-label">And your last name?</p>
+        <div class="field"><input type="text" id="w-last" required placeholder="Doe"></div>
+      </div>
+      <div class="wizard-step" data-step="3">
+        <p class="wizard-count">03 / 08</p>
+        <p class="wizard-label">What's your school email?</p>
+        <div class="field"><input type="email" id="w-email" required placeholder="jane@university.edu"></div>
+      </div>
+      <div class="wizard-step" data-step="4">
+        <p class="wizard-count">04 / 08</p>
+        <p class="wizard-label">Which school?</p>
+        <div class="field"><input type="text" id="w-school" required placeholder="University of Somewhere"></div>
+      </div>
+      <div class="wizard-step" data-step="5">
+        <p class="wizard-count">05 / 08</p>
+        <p class="wizard-label">Which seat are you applying for?</p>
+        <div class="field">
+          <select id="w-role" required>
+            <option value="" disabled selected>Select a seat</option>
+            <option>Campus President</option>
+            <option>Growth</option>
+            <option>Partnerships</option>
+            <option>Content</option>
+            <option>Culture</option>
+          </select>
+        </div>
+      </div>
+      <div class="wizard-step" data-step="6">
+        <p class="wizard-count">06 / 08</p>
+        <p class="wizard-label">Instagram handle?</p>
+        <div class="field"><input type="text" id="w-insta" placeholder="@yourhandle"></div>
+      </div>
+      <div class="wizard-step" data-step="7">
+        <p class="wizard-count">07 / 08</p>
+        <p class="wizard-label">Greek affiliation, if any?</p>
+        <div class="field"><input type="text" id="w-frat" placeholder="Sigma Alpha Epsilon"></div>
+      </div>
+      <div class="wizard-step" data-step="8">
+        <p class="wizard-count">08 / 08</p>
+        <p class="wizard-label">You're the person people text when something's happening. Tell us about a time that was you.</p>
+        <div class="field"><textarea id="w-why" rows="4" required placeholder="Tell us..."></textarea></div>
+      </div>
+
+      <div class="wizard-nav">
+        <button type="button" class="wizard-back" id="wizard-back">← back</button>
+        <button type="button" class="btn btn-primary btn-sm" id="wizard-next">Next →</button>
+        <button type="submit" class="btn btn-primary btn-sm" id="wizard-submit" hidden>Submit →</button>
+      </div>
+      <p class="wizard-hint"><kbd>Enter</kbd> to continue</p>
+    </form>
+    <div class="modal-success" hidden>
+      <div class="check">◆</div>
+      <h3>Run fomo on your campus.</h3>
+      <p>Your application is in. We read every one — expect to hear from us within two weeks.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script>
+// ---- View routing ----
+const views = {
+  'home': document.getElementById('view-home'),
+  'greek-wars': document.getElementById('view-greek-wars'),
+  'campus-team': document.getElementById('view-campus-team'),
+};
+const navLinks = document.querySelectorAll('.pill-nav a');
+
+function showView(name) {
+  if (!views[name]) name = 'home';
+  Object.entries(views).forEach(([key, el]) => { el.hidden = key !== name; });
+  navLinks.forEach((a) => a.classList.toggle('active', a.dataset.nav === name));
+}
+
+function routeFromHash() {
+  const hash = window.location.hash.replace('#', '') || 'home';
+  if (hash === 'scoreboard') { showView('greek-wars'); setTimeout(() => document.getElementById('scoreboard').scrollIntoView({behavior:'smooth'}), 50); return; }
+  showView(hash);
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', routeFromHash);
+routeFromHash();
+
+// ---- Modals ----
+function openModal(id) { document.getElementById(id).hidden = false; }
+function closeModal(id) { document.getElementById(id).hidden = true; }
+
+document.getElementById('open-onboard').addEventListener('click', () => openModal('onboard-modal'));
+document.getElementById('open-onboard-2').addEventListener('click', () => openModal('onboard-modal'));
+document.getElementById('open-dinner').addEventListener('click', () => openModal('dinner-modal'));
+document.getElementById('open-crewsheet').addEventListener('click', () => openModal('crewsheet-modal'));
+document.getElementById('open-wizard').addEventListener('click', () => openModal('wizard-modal'));
+document.getElementById('open-wizard-nav').addEventListener('click', () => openModal('wizard-modal'));
+document.getElementById('apply-band-dinner-link').addEventListener('click', (e) => { e.preventDefault(); openModal('dinner-modal'); });
+document.getElementById('apply-band-onboard-link').addEventListener('click', (e) => { e.preventDefault(); openModal('onboard-modal'); });
+
+document.querySelectorAll('.modal-close').forEach((btn) => {
+  btn.addEventListener('click', () => closeModal(btn.dataset.close));
+});
+document.querySelectorAll('.modal-overlay').forEach((overlay) => {
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.hidden = true; });
+});
+
+function handleFormSuccess(form) {
+  form.hidden = true;
+  const success = form.closest('.modal').querySelector('.modal-success');
+  success.hidden = false;
+}
+
+['onboard-form', 'dinner-form', 'crewsheet-form'].forEach((id) => {
+  document.getElementById(id).addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!e.target.checkValidity()) { e.target.reportValidity(); return; }
+    handleFormSuccess(e.target);
+  });
+});
+
+// ---- Application wizard ----
+const wizardForm = document.getElementById('wizard-form');
+const wizardSteps = Array.from(wizardForm.querySelectorAll('.wizard-step'));
+const wizardProgressBar = document.getElementById('wizard-progress-bar');
+const wizardBack = document.getElementById('wizard-back');
+const wizardNext = document.getElementById('wizard-next');
+const wizardSubmit = document.getElementById('wizard-submit');
+let wizardIndex = 0;
+
+function renderWizard() {
+  wizardSteps.forEach((step, i) => step.classList.toggle('active', i === wizardIndex));
+  wizardProgressBar.style.width = (((wizardIndex + 1) / wizardSteps.length) * 100) + '%';
+  wizardBack.hidden = wizardIndex === 0;
+  const isLast = wizardIndex === wizardSteps.length - 1;
+  wizardNext.hidden = isLast;
+  wizardSubmit.hidden = !isLast;
+  const input = wizardSteps[wizardIndex].querySelector('input, select, textarea');
+  if (input) setTimeout(() => input.focus(), 50);
+}
+
+function currentStepValid() {
+  const input = wizardSteps[wizardIndex].querySelector('input, select, textarea');
+  if (!input) return true;
+  if (input.hasAttribute('required') && !input.value.trim()) { input.reportValidity(); return false; }
+  if (input.type === 'email' && input.value && !input.checkValidity()) { input.reportValidity(); return false; }
+  return true;
+}
+
+wizardNext.addEventListener('click', () => {
+  if (!currentStepValid()) return;
+  wizardIndex = Math.min(wizardIndex + 1, wizardSteps.length - 1);
+  renderWizard();
+});
+wizardBack.addEventListener('click', () => {
+  wizardIndex = Math.max(wizardIndex - 1, 0);
+  renderWizard();
+});
+wizardForm.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    if (wizardIndex === wizardSteps.length - 1) { wizardForm.requestSubmit(); }
+    else { wizardNext.click(); }
+  }
+});
+wizardForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!currentStepValid()) return;
+  handleFormSuccess(wizardForm);
+});
+
+// Reset wizard whenever its modal opens
+document.getElementById('open-wizard').addEventListener('click', () => { wizardIndex = 0; renderWizard(); wizardForm.hidden = false; wizardForm.closest('.modal').querySelector('.modal-success').hidden = true; });
+document.getElementById('open-wizard-nav').addEventListener('click', () => { wizardIndex = 0; renderWizard(); wizardForm.hidden = false; wizardForm.closest('.modal').querySelector('.modal-success').hidden = true; });
+renderWizard();
+
+// ---- Onboarded chapters map ----
+const ONBOARDED_SCHOOLS = [
+  { name: 'University of Alabama', lat: 33.2098, lon: -87.5692 },
+  { name: 'University of Texas', lat: 30.2849, lon: -97.7341 },
+  { name: 'San Diego State University', lat: 32.7757, lon: -117.0719 },
+  { name: 'University of Florida', lat: 29.6465, lon: -82.3533 },
+  { name: 'University of Tennessee', lat: 35.9544, lon: -83.9295 },
+  { name: 'University of Michigan', lat: 42.2780, lon: -83.7382 },
+  { name: 'NYU', lat: 40.7295, lon: -73.9965 },
+  { name: 'Arizona State University', lat: 33.4242, lon: -111.9281 },
+  { name: 'Ohio State University', lat: 40.0067, lon: -83.0305 },
+  { name: 'Penn State University', lat: 40.7982, lon: -77.8599 },
+  { name: 'University of Georgia', lat: 33.9480, lon: -83.3773 },
+];
+
+function initMap() {
+  const mapEl = document.getElementById('us-map');
+  const tooltip = document.getElementById('map-tooltip');
+  if (!mapEl || typeof d3 === 'undefined') return;
+  const mapWidth = 960, mapHeight = 600;
+  const loading = mapEl.querySelector('.map-loading');
+
+  d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then((us) => {
+    if (loading) loading.remove();
+    const statesGeo = topojson.feature(us, us.objects.states);
+    const projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], statesGeo);
+    const pathGen = d3.geoPath(projection);
+
+    const svg = d3.select(mapEl).insert('svg', '.map-tooltip').attr('viewBox', `0 0 ${mapWidth} ${mapHeight}`);
+    svg.append('g').selectAll('path').data(statesGeo.features).join('path').attr('d', pathGen);
+
+    const markers = svg.append('g').selectAll('g').data(ONBOARDED_SCHOOLS).join('g')
+      .attr('transform', (d) => { const p = projection([d.lon, d.lat]); return p ? `translate(${p[0]},${p[1]})` : 'translate(-9999,-9999)'; })
+      .style('cursor', 'pointer');
+
+    markers.append('circle').attr('class', 'ping-pulse').attr('r', 5);
+    markers.append('circle').attr('class', 'ping-dot').attr('r', 4.5);
+
+    markers.on('mouseenter', function (event, d) {
+      const p = projection([d.lon, d.lat]);
+      const rect = svg.node().getBoundingClientRect();
+      const scaleX = rect.width / mapWidth, scaleY = rect.height / mapHeight;
+      tooltip.textContent = d.name;
+      tooltip.style.left = (p[0] * scaleX) + 'px';
+      tooltip.style.top = (p[1] * scaleY) + 'px';
+      tooltip.hidden = false;
+    }).on('mouseleave', () => { tooltip.hidden = true; });
+  }).catch(() => { if (loading) loading.textContent = 'Map unavailable — check your connection.'; });
+}
+initMap();
+</script>
 </body>
 </html>
